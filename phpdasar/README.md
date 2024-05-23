@@ -15,3 +15,7 @@
 4. pertemuan4
 
    function
+
+5. pertemuan5
+
+   array
