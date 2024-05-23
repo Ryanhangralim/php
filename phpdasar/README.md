@@ -11,3 +11,7 @@
 3. pertemuan3
 
    control flow / struktur kendali
+
+4. pertemuan4
+
+   function
