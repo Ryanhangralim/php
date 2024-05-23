@@ -19,3 +19,7 @@
 5. pertemuan5
 
    array
+
+6. pertemuan6
+
+   associative array
