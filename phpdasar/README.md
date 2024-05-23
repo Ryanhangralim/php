@@ -23,3 +23,7 @@
 6. pertemuan6
 
    associative array
+
+7. pertemuan7
+
+   GET & POST
