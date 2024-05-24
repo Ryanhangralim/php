@@ -18,6 +18,9 @@ $urut = 1;
     
     <h1>Daftar Anime</h1>
 
+    <a href="tambah.php">Tambah data anime</a>
+    <br><br>
+
     <table border="1" cellpadding="10" cellspacing="0">
 
         <tr>
