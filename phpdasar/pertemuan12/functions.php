@@ -59,4 +59,13 @@ function ubah($data){
 
     return mysqli_affected_rows($conn);
 }
+
+function cari($keyword){
+    $query = "SELECT * FROM anime WHERE title LIKE '%$keyword%' OR
+    type LIKE '%$keyword%' OR
+    episode LIKE '%$keyword%' OR
+    released_year LIKE '%$keyword%'";
+    return query($query);
+}
+
 ?>
