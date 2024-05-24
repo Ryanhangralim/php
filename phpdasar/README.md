@@ -2,44 +2,48 @@
 
 1. pertemuan1
 
-   Persiapan lingkungan pengembangan
+   - Persiapan lingkungan pengembangan
 
 2. pertemuan2
 
-   Sintaks php
+   - Sintaks php
 
 3. pertemuan3
 
-   control flow / struktur kendali
+   - control flow / struktur kendali
 
 4. pertemuan4
 
-   function
+   - function
 
 5. pertemuan5
 
-   array
+   - array
 
 6. pertemuan6
 
-   associative array
+   - associative array
 
 7. pertemuan7
 
-   GET & POST
+   - GET & POST
 
 8. pertemuan8
 
-   Database & MySQL
+   - Database & MySQL
 
 9. pertemuan9
 
-   PHP & MySQL
+   - PHP & MySQL
 
 10. pertemuan10
 
-SQL INSERT & DELETE
+    - SQL INSERT & DELETE
 
 11. pertemuan11
 
-DELETE
+    - DELETE
+
+12. pertemuan12
+
+- Searching
