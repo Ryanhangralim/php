@@ -21,7 +21,12 @@ function tambah($data){
     $type = htmlspecialchars($data["type"]);
     $episode = htmlspecialchars($data["episode"]);
     $released_year = htmlspecialchars($data["released_year"]);
-    $image = htmlspecialchars($data["image"]);
+
+    // upload gambar
+    $image = upload();
+    if ( !$image ){
+        return false;
+    }
 
     // query insert data
     $query = "INSERT INTO anime
@@ -30,6 +35,50 @@ function tambah($data){
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
+}
+
+function upload(){
+    $namaFile = $_FILES['image']['name'];
+    $ukuranFile = $_FILES['image']['size'];
+    $error = $_FILES['image']['error'];
+    $tmpName = $_FILES['image']['tmp_name'];
+
+    // cek apakah ada gambar yang diupload
+    if( $error === 4){
+        echo "<script>
+                alert('pilih gambar terlebih dahulu!');
+            </script>";
+        return false;
+    }
+
+    //cek apakah yang diupload adalah gambar
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+    $namaGambar = explode('.', $namaFile);
+    $ekstensiGambar = strtolower(end($namaGambar));
+
+    if( !in_array($ekstensiGambar, $ekstensiGambarValid)){
+        echo "<script>
+                alert('File yang anda upload bukan gambar!');
+            </script>";
+    }
+
+    //cek jika ukuran terlalu besar
+    if ($ukuranFile > 1000000){
+        echo "<script>
+                alert('Ukuran gambar terlalu besar!');
+            </script>";
+    }
+
+    //lolos pengecekan, gambar siap diupload
+    //generate nama gambar baru
+    $namaFileBaru = $namaGambar[0];
+    $namaFileBaru .= "_";
+    $namaFileBaru .= uniqid();
+    $namaFileBaru .= ".";
+    $namaFileBaru .= $ekstensiGambar;
+
+    move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
+    return $namaFileBaru;
 }
 
 function hapus($id){
@@ -49,7 +98,14 @@ function ubah($data){
     $type = htmlspecialchars($data["type"]);
     $episode = htmlspecialchars($data["episode"]);
     $released_year = htmlspecialchars($data["released_year"]);
-    $image = htmlspecialchars($data["image"]);
+    $gambarLama = htmlspecialchars($data["gambarLama"]);
+
+    //cek apakah user pilih gambar baru atau tidak
+    if($_FILES["image"]["error"] === 4){
+        $image = $gambarLama;
+    } else{
+        $image = upload();
+    }
 
     // query insert data
     $query = "UPDATE anime

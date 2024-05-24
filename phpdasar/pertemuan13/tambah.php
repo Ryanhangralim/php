@@ -29,7 +29,7 @@ if(isset($_POST["submit"])){
 <body>
     <h1>Tambah data anime</h1>
 
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <ul>
             <li>
                 <label for="title">Title : </label>
@@ -49,7 +49,7 @@ if(isset($_POST["submit"])){
             </li>
             <li>
                 <label for="image">Gambar : </label>
-                <input type="text" name="image" id="image" required>
+                <input type="file" name="image" id="image">
             </li>
             <li>
                 <button type="submit" name="submit">Tambah Data!</button>

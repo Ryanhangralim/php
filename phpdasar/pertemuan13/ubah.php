@@ -33,11 +33,12 @@ if(isset($_POST["submit"])){
 <body>
     <h1>Update data anime</h1>
 
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <ul>
             <li>
                 <label for="id">ID : </label>
-                <input type="id" name="id" id="id" value="<?= $selected_anime['id']; ?>" required readonly>
+                <input type="hidden" name="id" id="id" value="<?= $selected_anime['id']; ?>">
+                <input type="hidden" name="gambarLama" value="<?= $selected_anime['image']; ?>">
             </li>
             <li>
                 <label for="title">Title : </label>
@@ -56,8 +57,9 @@ if(isset($_POST["submit"])){
                 <input type="text" name="released_year" id="released_year"value="<?= $selected_anime['released_year']; ?>"  required>
             </li>
             <li>
-                <label for="image">Gambar : </label>
-                <input type="text" name="image" id="image" value="<?= $selected_anime['image']; ?>" required>
+                <label for="image">Gambar : </label> <br>
+                <img src="img/<?= $selected_anime['image']; ?>" width="40px"> <br>
+                <input type="file" name="image" id="image" >
             </li>
             <li>
                 <button type="submit" name="submit">Update data</button>
