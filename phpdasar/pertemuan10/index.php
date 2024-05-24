@@ -38,7 +38,7 @@ $urut = 1;
             <td><?= $urut?></td>
             <td>
                 <a href="">Ubah</a> |
-                <a href="">Hapus</a>
+                <a href="hapus.php?id=<?= $anime_data["id"]; ?>">Hapus</a>
             </td>
             <td><img src="img/<?= $anime_data["image"]; ?>" alt=""  width="50"></td>
             <td><?= $anime_data["title"];?></td>
