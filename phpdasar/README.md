@@ -27,3 +27,7 @@
 7. pertemuan7
 
    GET & POST
+
+8. pertemuan8
+
+   Database & MySQL
