@@ -35,3 +35,7 @@
 9. pertemuan9
 
    PHP & MySQL
+
+10. pertemuan10
+
+INSERT & DELETE
