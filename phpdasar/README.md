@@ -38,7 +38,7 @@
 
 10. pertemuan10
 
-INSERT & DELETE
+SQL INSERT & DELETE
 
 11. pertemuan11
 
