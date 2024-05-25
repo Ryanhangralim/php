@@ -36,13 +36,13 @@ $urut = 1;
 
     <form action="" method="post">
 
-        <input type="text" name="keyword", size="40" autofocus placeholder="masukkan keyword pencarian" autocomplete="off">
-        <button type="submit" name="cari">Cari!</button>
+        <input type="text" name="keyword" id="keyword" size="40" autofocus placeholder="masukkan keyword pencarian" autocomplete="off">
+        <button type="submit" name="cari" id="tombol-cari">Cari!</button>
 
     </form>
 
     <br>
-
+    <div id="container">
     <table border="1" cellpadding="10" cellspacing="0">
 
         <tr>
@@ -72,5 +72,8 @@ $urut = 1;
         <?php endforeach;?>
 
     </table>
+    </div>
+    
+    <script src="js/script.js"></script>
 </body>
 </html>
