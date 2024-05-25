@@ -67,3 +67,7 @@
 17. pertemuan17
 
     - Cookie
+
+18. pertemuan18
+
+    - Pagination
