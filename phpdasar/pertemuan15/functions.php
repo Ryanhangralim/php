@@ -158,4 +158,31 @@ function registrasi($data){
     return mysqli_affected_rows($conn);
 }
 
+function login($data){
+    global $conn;
+
+    $username = htmlspecialchars(strtolower(stripslashes($data["username"])));
+    $password = mysqli_real_escape_string($conn, $data["password"]);
+    
+    //cek apakah username ada di database
+    $result = mysqli_query($conn, "SELECT username, password FROM user WHERE username = '$username';");
+
+    //cek username
+    if(mysqli_num_rows($result) === 1){
+        //cek password
+        $row = mysqli_fetch_assoc($result);
+
+        //cek apakah password sesuai dengan user
+        if(password_verify($password, $row["password"])){
+            //jika password sama
+            return 0;
+        } else{
+            return 1;
+        }
+    } else{
+        return 2;
+    }
+
+}
+
 ?>
