@@ -1,25 +1,57 @@
 <?php 
 session_start();
 
+require 'functions.php';
+
+//cek cookie
+
+if (isset($_COOKIE["id"]) && isset($_COOKIE["key"])){
+    $id = $_COOKIE["id"];
+    $key = $_COOKIE["key"];
+
+    // ambil username berdasarkan id
+    $result = query("SELECT username FROM user WHERE id = '$id'");
+
+    //cek cookie and username
+    if( $key === hash("sha256", $result["username"])){
+        $_SESSION["login"] = true;
+    }
+}
+
+// if (isset($_COOKIE["login"])){
+//     if($_COOKIE["login"] == 'true'){
+//         $_SESSION["login"] = true;
+//     }
+// }
+
 // cek jika sudah pernah login
 if ( isset($_SESSION["login"])){
     header("Location: index.php");
     exit;
 }
 
-require 'functions.php';
 
 if(isset($_POST["login"])){
-    
-    if( login($_POST) === 0){
+    //result[0]:query result, result[1]:result code
+    $result = login($_POST);
+    $row = $result[0];
+    $return_code = $result[1];
+    if( $return_code === 0){
         //set session
         $_SESSION["login"] = true;
 
+        //cek remember me
+        if(isset($_POST["remember"])){
+            //buat cookie
+            setcookie('id', $row['id'], time()+60);
+            setcookie('key', hash('sha256', $row["username"]), time()+60);
+        }
+
         header("Location: index.php");
         exit;
-    } elseif(login($_POST) === 1){
+    } elseif( $return_code === 1){
         $error = "Password Salah";
-    } else{
+    } elseif( $return_code === 2){
         $error = "Username Belum Terdaftar";
     }
 }
@@ -49,6 +81,10 @@ if(isset($_POST["login"])){
             <label for="password">Password: </label>
             <input type="password" name="password" id="password" required>
         </li> 
+        <li>
+            <input type="checkbox" name="remember" id="remember">
+            <label for="remember">Remember Me</label>
+        </li>
         <li>
             <button type="submit" name="login">Login!</button>
         </li>       

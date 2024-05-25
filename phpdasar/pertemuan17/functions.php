@@ -165,22 +165,31 @@ function login($data){
     $password = mysqli_real_escape_string($conn, $data["password"]);
     
     //cek apakah username ada di database
-    $result = mysqli_query($conn, "SELECT username, password FROM user WHERE username = '$username';");
+    $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username';");
 
     //cek username
     if(mysqli_num_rows($result) === 1){
+        //menampung result
+        $return_result = [];
+        
         //cek password
         $row = mysqli_fetch_assoc($result);
+
+        //menambahkan hasil row ke array return
+        $return_result[] = $row;
 
         //cek apakah password sesuai dengan user
         if(password_verify($password, $row["password"])){
             //jika password sama
-            return 0;
+            $return_result[] = 0;
+            return $return_result;
         } else{
-            return 1;
+            $return_result[] = 1;
+            return $return_result;
         }
     } else{
-        return 2;
+        $return_result[] = 2;
+        return $return_result;
     }
 
 }
