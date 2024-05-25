@@ -8,21 +8,14 @@ if ( !isset($_SESSION["login"])){
 
 require 'functions.php';
 
-// konfigurasi pagination
-$jumlah_data_per_halaman = 5;
-$jumlah_data = count(query("SELECT * FROM anime"));
-$jumlah_halaman = ceil($jumlah_data/$jumlah_data_per_halaman);
-$active_page =  (isset($_GET["page"])) ? $_GET["page"] : 1;
-$awal_data = ( $jumlah_data_per_halaman * $active_page) - $jumlah_data_per_halaman;
-
-$anime_list = query("SELECT * FROM anime LIMIT $awal_data, $jumlah_data_per_halaman");
+$anime_list = query("SELECT * FROM anime");
 
 //tombol cari ditekan
 if (isset($_POST["cari"])){
     $anime_list = cari($_POST["keyword"]);
 }
 
-$urut = $awal_data+1;
+$urut = 1;
 ?>
 
 <!DOCTYPE html>
@@ -47,22 +40,7 @@ $urut = $awal_data+1;
         <button type="submit" name="cari">Cari!</button>
 
     </form>
-    <br><br>
 
-    <!-- navigasi -->
-    <?php if($active_page > 1):?>
-        <a href="?page=<?= $active_page - 1;?>">&laquo;</a>
-        <?php endif;?>
-    <?php for($i = 1; $i <= $jumlah_halaman; $i++):?>
-        <?php if($i == $active_page):?>
-            <b><a href="?page=<?=$i;?>" style="color: red"><?= $i;?></a></b>
-            <?php else:?>
-                <a href="?page=<?=$i;?>"><?= $i;?></a>
-                <?php endif?>
-                <?php endfor;?>                
-    <?php if($active_page < $jumlah_halaman):?>
-        <a href="?page=<?= $active_page + 1;?>">&raquo;;</a>
-        <?php endif;?>
     <br>
 
     <table border="1" cellpadding="10" cellspacing="0">
