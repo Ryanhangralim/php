@@ -18,6 +18,11 @@ class Produk{
     public function getLabel(){
         return "$this->penulis, $this->penerbit";
     }
+
+    public function getInfoProduk(){
+        $str = "{$this->judul} | {$this->getLabel()} (Rp. $this->harga)";
+        return $str;
+    }
 }
 
 class CetakInfoProduk{
@@ -27,23 +32,61 @@ class CetakInfoProduk{
     }
 }
 
-// $produk1 = new Produk();
-// $produk1->judul = "Naruto";
-// var_dump($produk1)
+//inheritance produk -> komik
+class Komik extends Produk{
+    public $halaman;
 
-$produk3 = new Produk("Naruto", "Masashi Kishimoto", "Shonen Jump", 30000);
-// $produk3->judul = "Naruto";
-// $produk3->penulis = "Masashi Kisihimoto";
-// $produk3->penerbit = "Shonen Jump";
-// $produk3->harga = 30000;
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $halaman = 0)
+    {
+        $this->judul = $judul;
+        $this->penulis = $penulis;
+        $this->penerbit = $penerbit;
+        $this->harga = $harga;
+        $this->halaman = $halaman;
+    }
 
-echo "Komik: $produk3->penulis, $produk3->penerbit";
-echo "<br>";
-echo $produk3->getLabel();
-echo "<br>";
+    public function cetakDeskripsi($pesan){
+        $str = "Komik : {$pesan} - {$this->halaman} Halaman.";
+        return $str;
+    }
+}
+
+//inheritance produk -> komik
+class Game extends Produk{
+    public $jam;
+
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $jam = 0)
+    {
+        $this->judul = $judul;
+        $this->penulis = $penulis;
+        $this->penerbit = $penerbit;
+        $this->harga = $harga;
+        $this->jam = $jam;
+    }
+
+    public function cetakDeskripsi($pesan){
+        $str = "Komik : {$pesan} ~ {$this->jam} Jam.";
+        return $str;
+    }
+}
+
+
+$komik1 = new Komik("Naruto", "Masashi Kishimoto", "Shonen Jump", 30000, 100);
+$game1 = new Game("Persona 5 Royal", "Daiki Ito", "Atlus", 700000, 101);
 
 $infoProduk = new CetakInfoProduk();
-echo $infoProduk->cetak($produk3);
+
+echo $komik1->cetakDeskripsi($infoProduk->cetak($komik1));
+echo "<br>";
+echo $game1->cetakDeskripsi($infoProduk->cetak($game1));
+
+
+// echo "Komik: $produk3->penulis, $produk3->penerbit";
+// echo "<br>";
+// echo $produk3->getLabel();
+// echo "<br>";
+
+// echo $infoProduk->cetak($produk3);
 
 
 ?>
