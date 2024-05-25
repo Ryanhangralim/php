@@ -1,4 +1,11 @@
 <?php 
+session_start();
+
+if ( !isset($_SESSION["login"])){
+    header("Location: login.php");
+    exit;
+}
+
 require 'functions.php';
 
 $anime_list = query("SELECT * FROM anime");
@@ -20,6 +27,8 @@ $urut = 1;
 </head>
 <body>
     
+    <a href="logout.php">Logout</a>
+
     <h1>Daftar Anime</h1>
 
     <a href="tambah.php">Tambah data anime</a>

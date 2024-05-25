@@ -49,6 +49,7 @@ if(isset($_POST["register"])){
         </li>
     </ul>
 </form>
+<a href="login.php">Login</a>
 
 </body>
 </html>

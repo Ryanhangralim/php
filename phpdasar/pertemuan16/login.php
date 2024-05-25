@@ -1,9 +1,20 @@
 <?php 
+session_start();
+
+// cek jika sudah pernah login
+if ( isset($_SESSION["login"])){
+    header("Location: index.php");
+    exit;
+}
+
 require 'functions.php';
 
 if(isset($_POST["login"])){
     
     if( login($_POST) === 0){
+        //set session
+        $_SESSION["login"] = true;
+
         header("Location: index.php");
         exit;
     } elseif(login($_POST) === 1){
@@ -42,6 +53,7 @@ if(isset($_POST["login"])){
             <button type="submit" name="login">Login!</button>
         </li>       
     </form>
+    <a href="registrasi.php">Buat akun</a>
 
 </body>
 </html>
