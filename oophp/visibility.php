@@ -5,7 +5,9 @@ class Produk{
     public $judul;
     public $penulis;
     public $penerbit;
-    public $harga;
+
+    protected $diskon = 0;
+    private $harga;
 
     public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0)
     {
@@ -18,6 +20,9 @@ class Produk{
     public function getLabel(){
         return "$this->penulis, $this->penerbit";
     }
+
+    public function getHarga(){
+        return $this->harga - ($this->harga * $this->diskon /100);    }
 
     public function getInfoProduk(){
         $str = "{$this->judul} | {$this->getLabel()} (Rp. $this->harga)";
@@ -58,6 +63,10 @@ class Game extends Produk{
         $this->jam = $jam;
     }
 
+    public function setDiskon( $diskon ){
+        $this->diskon = $diskon;
+    }
+
     public function getInfoProduk(){
         $str = "Komik : ". parent::getInfoProduk() . " ~ {$this->jam} Jam.";
         return $str;
@@ -73,6 +82,10 @@ $game1 = new Game("Persona 5 Royal", "Daiki Ito", "Atlus", 700000, 101);
 echo $komik1->getInfoProduk();
 echo "<br>";
 echo $game1->getInfoProduk();
+echo "<br>";
+echo "<hr>";
+$game1->setDiskon(50);
+echo $game1->getHarga();
 
 
 // echo "Komik: $produk3->penulis, $produk3->penerbit";
