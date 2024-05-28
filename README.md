@@ -15,3 +15,7 @@ php related files for learning purposes
 3. phpmvc
 
    Codes from "[Membuat Aplikasi MVC dengan PHP](https://youtube.com/playlist?list=PLFIM0718LjIVEh_d-h5wAjsdv2W4SAtkx&si=ZZmQw6-cVtWC7nC3)" playlist by [Web Programming UNPAS](https://www.youtube.com/@sandhikagalihWPU)
+
+4. laravel
+
+   Codes from "[Belajar LARAVEL 8](https://www.youtube.com/playlist?list=PLFIM0718LjIWiihbBIq-SWPU6b6x21Q_2)" playlist by [Web Programming UNPAS](https://www.youtube.com/@sandhikagalihWPU)
