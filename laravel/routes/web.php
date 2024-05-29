@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 
 /*
@@ -42,9 +43,5 @@ Route::get('/categories', [CategoryController::class, 'index']);
 //halaman category
 Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
 
-Route::get('/authors/{author:username}', function(User $author){
-    return view("posts", [
-        "title" => "User Posts",
-        "posts" => $author->posts,
-    ]);
-});
+//halaman blog penulis
+Route::get('/authors/{author:username}', [AuthorController::class, 'show']);
