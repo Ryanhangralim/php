@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -40,3 +41,10 @@ Route::get('/categories', [CategoryController::class, 'index']);
 
 //halaman category
 Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
+
+Route::get('/authors/{author:username}', function(User $author){
+    return view("posts", [
+        "title" => "User Posts",
+        "posts" => $author->posts,
+    ]);
+});
