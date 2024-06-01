@@ -24,6 +24,17 @@ class Post extends Model
 
     protected $with = ['category', 'author'];
 
+    //scope query
+    public function scopeFilter($query, array $filters){
+            // jika ada, masukann nilai, jika tidak maka false
+            $query->when($filters['search'] ?? false, function($query, $search) {
+                return $query->where(function($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('body', 'like', '%' . $search . '%');
+                });
+        });
+    }
+
     public function category() : BelongsTo
     {
         return $this->belongsTo(Category::class);

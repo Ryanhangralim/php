@@ -15,4 +15,15 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    // scope query
+    public function scopeFilter($query, array $filters){
+            // jika ada, masukann nilai, jika tidak maka false
+            $query->when($filters['search'] ?? false, function($query, $search) {
+                return $query->where(function($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('body', 'like', '%' . $search . '%');
+            });
+        });
+    }
 }

@@ -18,8 +18,9 @@ class CategoryController extends Controller
     public function show(Category $category){
         return view('category', [
             'title' => $category->name,
-            'posts' => $category->posts,
-            'category' => $category->name
+            'category' => $category->name,
+            'slug' => $category->slug,
+            "posts" => $category->posts()->latest()->filter(request(['search']))->paginate(6)
         ]);
     }
 }

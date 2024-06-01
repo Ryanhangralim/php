@@ -11,7 +11,8 @@ class AuthorController extends Controller
         $name = $author->name;
     return view("authors", [
         "title" => $name . "'s Posts",
-        "posts" => $author->posts->load('category', 'author'),
+        "username" => $author->username,
+        "posts" => $author->posts()->filter(request(['search']))->paginate(6),
         "author_name" => $name
     ]);
     }
