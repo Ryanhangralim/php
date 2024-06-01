@@ -13,10 +13,15 @@
             <a class="nav-link {{ ($title === "About" ? 'active' : '') }}" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ ($title === "All Posts"  || "Single Post" ? 'active' : '') }}" href="/posts">Blog</a>
+            <a class="nav-link {{ ($title === "All Posts" || $title === "Single Post" ? 'active' : '') }}" href="/posts">Blog</a>
           </li>
           <li class="nav-item">
             <a class="nav-link {{ ($title === "Post Categories" ? 'active' : '') }}" href="/categories">Categories</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="/login" class="nav-link {{ ($title === "Login" ? 'active' : '') }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
           </li>
         </ul>
       </div>

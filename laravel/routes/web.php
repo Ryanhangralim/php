@@ -1,12 +1,11 @@
 <?php
 
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +39,14 @@ Route::get('posts/{post:slug}', [PostController::class, 'show']);
 //halaman categories
 Route::get('/categories', [CategoryController::class, 'index']);
 
+//halaman blog penulis
+Route::get('/authors/{author:username}', [AuthorController::class, 'show']);
+
 //halaman category
 Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
 
-//halaman blog penulis
-Route::get('/authors/{author:username}', [AuthorController::class, 'show']);
+//halaman login
+Route::get('/login', [LoginController::class, 'index']);
+
+//halaman register
+Route::get('/register', [RegisterController::class, 'index']);
