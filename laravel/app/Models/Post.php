@@ -44,4 +44,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    //default menggunakan slug
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
