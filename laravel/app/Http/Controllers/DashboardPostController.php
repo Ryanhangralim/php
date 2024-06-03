@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardPostController extends Controller
 {
@@ -95,14 +96,26 @@ class DashboardPostController extends Controller
         $rules = [
             'title' => ['required', 'max:255'],
             'category_id' => ['required'],
+            'image' => ['image', 'file', 'max:2048'],
             'body' => ['required']
         ];
 
+        
         if($request->slug != $post->slug){
             $rules['slug'] = ['required', 'unique:posts'];
         }
-
+        
         $validatedData = $request->validate($rules);
+
+        //jika ada image yang diupload, masukkan path image
+        if($request->file('image')) {
+            //hapus file gambar lama
+            if($post->image != null)
+            {
+                Storage::delete($post->image);
+            }
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         //mengambil excerpt dari body tanpa tag
@@ -120,6 +133,11 @@ class DashboardPostController extends Controller
      */
     public function destroy(Post $post)
     {
+        //hapus file gambar lama
+        if($post->image != null)
+        {
+            Storage::delete($post->image);
+        }
         Post::destroy($post->id);
         return redirect('/dashboard/posts')->with('success', 'Post has been deleted');
     }

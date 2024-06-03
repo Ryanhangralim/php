@@ -17,6 +17,7 @@
           </div>
           @enderror
         </div>
+
         <div class="mb-3">
           <label for="slug" class="form-label">Slug</label>
           <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" required value="{{ old('slug') }}">
@@ -26,15 +27,7 @@
           </div>
           @enderror
         </div>
-        <div class="mb-3">
-          <label for="image" class="form-label @error('image') is-invalid @enderror">Post Image</label>
-          <input class="form-control" type="file" id="image" name="image">
-          @error('image')
-          <div class="invalid-feedback">
-            {{ $message }}
-          </div>
-          @enderror
-        </div>
+
         <div class="mb-3">
           <label for="category" class="form-label">Category</label>
           <select class="form-select" name="category_id" id="category">
@@ -46,6 +39,17 @@
               @endif
             @endforeach
           </select>
+        </div>
+        
+        <div class="mb-3">
+          <label for="image" class="form-label">Post Image</label>
+          <img class="img-preview img-fluid mb-3 col-sm-5">
+          <input class="form-control  @error('image') is-invalid @enderror" type="file" id="image" name="image">
+          @error('image')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+          @enderror
         </div>
 
         <div class="mb-3">
@@ -62,6 +66,17 @@
   </div>
 
   <script>
+    const image = document.querySelector("#image")
+    image.addEventListener("change", function(){
+      const imgPreview = document.querySelector(".img-preview");
+
+      imgPreview.style.display = 'block';
+
+      const blob = URL.createObjectURL(image.files[0])
+      imgPreview.src = blob;
+      
+    })
+
     const title = document.querySelector("#title");
     const slug = document.querySelector("#slug");
 
@@ -73,6 +88,7 @@
 
     document.addEventListener('trix-file-accept', function(e){
         e.preventDefault();
+
     })
 </script>
 @endsection

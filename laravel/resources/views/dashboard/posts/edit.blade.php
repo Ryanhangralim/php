@@ -6,7 +6,7 @@
   </div>
 
   <div class="col-lg-8">
-      <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="mb-5">
+      <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="mb-5" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="mb-3">
@@ -41,6 +41,21 @@
         </div>
 
         <div class="mb-3">
+          <label for="image" class="form-label">Post Image</label>
+          @if($post->image)
+            <img src="{{ asset('storage') ."/". $post->image }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+          @else
+            <img class="img-preview img-fluid mb-3 col-sm-5">
+          @endif
+          <input class="form-control  @error('image') is-invalid @enderror" type="file" id="image" name="image">
+          @error('image')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+          @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="body">Body</label>
             @error('body')
             <p class="text-danger">{{ $message }}</p>
@@ -54,6 +69,16 @@
   </div>
 
   <script>
+    const image = document.querySelector("#image")
+    image.addEventListener("change", function(){
+      const imgPreview = document.querySelector(".img-preview");
+
+      imgPreview.style.display = 'block';
+
+      const blob = URL.createObjectURL(image.files[0])
+      imgPreview.src = blob;      
+    })
+
     const title = document.querySelector("#title");
     const slug = document.querySelector("#slug");
 
