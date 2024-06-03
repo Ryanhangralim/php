@@ -25,7 +25,7 @@ class PostFactory extends Factory
             ->map(fn($p) => "<p>$p</p>")
             ->implode(''),
             "category_id" => mt_rand(1, 3),
-            "user_id" => mt_rand(1,3)
+            "user_id" => mt_rand(1,4)
         ];
     }
 }
