@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class AdminCategoryController extends Controller
@@ -22,7 +23,7 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.categories.create');
     }
 
     /**
@@ -30,7 +31,18 @@ class AdminCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => ['required', 'unique:categories'],
+            'slug' => ['required', 'unique:categories']
+        ];
+
+        $validatedData = $request->validate($rules);
+        //title case
+        $validatedData['name'] = ucwords($request->name);
+
+        Category::create($validatedData);
+
+        return redirect('/dashboard/categories')->with('success', 'New category added!');
     }
 
     /**
@@ -46,7 +58,10 @@ class AdminCategoryController extends Controller
      */
     public function edit(category $category)
     {
-        //
+        // return $category;
+        return view('dashboard.categories.edit', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -54,7 +69,19 @@ class AdminCategoryController extends Controller
      */
     public function update(Request $request, category $category)
     {
-        //
+        $rules = [
+            'name' => ['required', 'unique:categories'],
+            'slug' => ['required', 'unique:categories']
+        ];
+
+        $validatedData = $request->validate($rules);
+        //title case
+        $validatedData['name'] = ucwords($request->name);
+
+        //update data ke database
+        Category::where('id', $category->id)->update($validatedData);
+
+        return redirect('/dashboard/categories')->with('success', 'Category has been updated');
     }
 
     /**
@@ -62,6 +89,7 @@ class AdminCategoryController extends Controller
      */
     public function destroy(category $category)
     {
-        //
+        Category::destroy($category->id);
+        return redirect('/dashboard/categories')->with('success', 'Category has been deleted');
     }
 }

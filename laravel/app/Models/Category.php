@@ -26,4 +26,10 @@ class Category extends Model
             });
         });
     }
+    
+    //default menggunakan slug
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

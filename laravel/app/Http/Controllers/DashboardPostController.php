@@ -100,7 +100,7 @@ class DashboardPostController extends Controller
             'body' => ['required']
         ];
 
-        
+        //jika mengganti slug
         if($request->slug != $post->slug){
             $rules['slug'] = ['required', 'unique:posts'];
         }
@@ -117,6 +117,7 @@ class DashboardPostController extends Controller
             $validatedData['image'] = $request->file('image')->store('post-images');
         }
 
+        //mengambil is user yang mengupdate post
         $validatedData['user_id'] = auth()->user()->id;
         //mengambil excerpt dari body tanpa tag
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
